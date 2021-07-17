@@ -3,12 +3,11 @@ use crate::transaction_type::TransactionType;
 use chrono::prelude::*;
 use ordered_float::OrderedFloat;
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Eq)]
 pub struct Transaction {
     #[serde(with = "transaction_date_format")]
     #[serde(default = "Local::now")]
     pub date: DateTime<Local>,
-    #[serde(default = "default_checkNumber")]
     pub check_number: Option<u32>,
     pub vendor: String,
     #[serde(default = "String::new")]
@@ -16,8 +15,49 @@ pub struct Transaction {
     #[serde(default = "default_float")]
     pub amount: OrderedFloat<f64>,
     #[serde(rename = "type")]
+    #[serde(default = "default_type")]
     pub transaction_type: TransactionType,
+    #[serde(default = "default_reconciled")]
     pub is_reconciled: bool
+}
+
+impl Transaction {
+    fn new() -> Transaction {
+        Transaction {
+            date: Local::now(),
+            check_number: None,
+            vendor: String::new(),
+            memo: String::new(),
+            amount: default_float(),
+            transaction_type: default_type(),
+            is_reconciled: default_reconciled()
+
+        }
+    }
+
+    fn from(date: DateTime<Local>, check_number: Option<u32>, vendor: String, memo: String, amount: OrderedFloat<f64>, transaction_type: TransactionType, is_reconciled: bool) -> Transaction {
+        Transaction {
+            date,
+            check_number,
+            vendor,
+            memo,
+            amount,
+            transaction_type,
+            is_reconciled
+        }
+    }
+}
+
+impl PartialEq for Transaction {
+    fn eq(&self, other: &Self) -> bool {
+        self.date == other.date && 
+        self.check_number == other.check_number &&
+        self.vendor == other.vendor &&
+        self.memo == other.memo &&
+        self.amount == other.amount &&
+        self.transaction_type == other.transaction_type &&
+        self.is_reconciled == other.is_reconciled
+    }
 }
 
 mod transaction_date_format {
@@ -36,10 +76,14 @@ mod transaction_date_format {
     }
 }
 
-fn default_checkNumber() -> Option<u32> {
-    None
-}
-
 fn default_float() -> OrderedFloat<f64> {
     OrderedFloat::<f64>(0.0)
+}
+
+fn default_reconciled() -> bool {
+    false
+}
+
+fn default_type() -> TransactionType {
+    TransactionType::WITHDRAWAL
 }
