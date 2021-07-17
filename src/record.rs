@@ -1,5 +1,5 @@
 use crate::{ transaction::Transaction, transaction_type::TransactionType };
-use serde::{ Serialize, Deserialize, Deserializer };
+use serde::{ Serialize, Deserialize };
 use uuid::Uuid;
 use ordered_float::OrderedFloat;
 
