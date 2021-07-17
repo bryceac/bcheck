@@ -38,7 +38,7 @@ impl Record {
 
     pub fn from_file(f: &str) -> Result<Vec<Record>, String> {
         if let Ok(content) = file_contents_from(f) {
-            if let Ok(decoded_records) = serde_json::from_str::<Vec<Record>>(content) {
+            if let Ok(decoded_records) = serde_json::from_str::<Vec<Record>>(&content) {
                 Ok(decoded_records)
             } else {
                 Err(String::from("Could not parse data successfully."))
