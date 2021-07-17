@@ -22,7 +22,7 @@ pub struct Transaction {
 }
 
 impl Transaction {
-    fn new() -> Transaction {
+    pub fn new() -> Transaction {
         Transaction {
             date: Local::now(),
             check_number: None,
@@ -35,7 +35,7 @@ impl Transaction {
         }
     }
 
-    fn from(date: DateTime<Local>, check_number: Option<u32>, vendor: String, memo: String, amount: OrderedFloat<f64>, transaction_type: TransactionType, is_reconciled: bool) -> Transaction {
+    pub fn from(date: DateTime<Local>, check_number: Option<u32>, vendor: String, memo: String, amount: OrderedFloat<f64>, transaction_type: TransactionType, is_reconciled: bool) -> Transaction {
         Transaction {
             date,
             check_number,

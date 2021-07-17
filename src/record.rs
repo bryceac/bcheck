@@ -11,6 +11,16 @@ pub struct Record {
     pub previous_record: Option<Box<Record>>
 }
 
+impl Record {
+    fn new() -> Record {
+        Record {
+            id: default_id(),
+            transaction: Transaction::new(),
+            previous_record: None
+        }
+    }
+}
+
 fn default_id() -> String {
     Uuid::new_v4().to_hyphenated().to_string()
 }
