@@ -1,3 +1,5 @@
+mod transaction_type;
+
 #[cfg(test)]
 mod tests {
     #[test]
