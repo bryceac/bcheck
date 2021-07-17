@@ -9,7 +9,7 @@
 //! fn main() {
 //!     if let Ok(records) = Record::from_file("/Users/bob/Docuents/transactions.bcheck") {
 //!         for record in records {
-//!             println!("{}", record.vendor)
+//!             println!("{}", record.transaction.vendor)
 //!         }
 //!     }
 //! }
