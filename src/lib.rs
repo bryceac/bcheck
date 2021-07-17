@@ -9,7 +9,6 @@ mod tests {
     use crate::transaction_type::TransactionType;
     use chrono::prelude::*;
     use ordered_float::OrderedFloat;
-    use std::{fs::File, io::* };
 
     use serde_json;
     #[test]
