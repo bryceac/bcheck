@@ -10,14 +10,13 @@ pub struct Transaction {
     pub date: DateTime<Local>,
     pub check_number: Option<u32>,
     pub vendor: String,
-    #[serde(default = "String::new")]
+    #[serde(default = "String::new", skip_serializing_if = "String::is_empty")]
     pub memo: String,
     #[serde(default = "default_float")]
     pub amount: OrderedFloat<f64>,
     #[serde(rename = "type")]
-    #[serde(default = "default_type")]
     pub transaction_type: TransactionType,
-    #[serde(default = "default_reconciled")]
+    #[serde(default = "default_reconciled", skip_serializing_if = "is_default_reconciled")]
     pub is_reconciled: bool
 }
 
@@ -29,7 +28,7 @@ impl Transaction {
             vendor: String::new(),
             memo: String::new(),
             amount: default_float(),
-            transaction_type: default_type(),
+            transaction_type: TransactionType::WITHDRAWAL,
             is_reconciled: default_reconciled()
 
         }
@@ -84,6 +83,6 @@ fn default_reconciled() -> bool {
     false
 }
 
-fn default_type() -> TransactionType {
-    TransactionType::WITHDRAWAL
+fn is_default_reconciled(v: &bool) -> bool {
+    *v == default_reconciled()
 }
