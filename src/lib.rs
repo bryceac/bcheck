@@ -4,6 +4,7 @@ mod record;
 
 pub use crate::transaction::Transaction as Transaction;
 pub use crate::transaction_type::TransactionType as TransactionType;
+pub use crate::record::Record as Record;
 
 #[cfg(test)]
 mod tests {
