@@ -1,3 +1,21 @@
+//! bcheck provides the ability to read bcheck files generated from the application BCheckbook
+//! When using this crate in conjunction with serde_json in your own project, it is also possible to generate the files too, though I am hoping to find a way to extend Vector, so that it can all be done via this crate.
+//! # Quick Start
+//! The easiest way to get things working, after adding the crate as a dependency would be like this:
+//! 
+//! ```
+//! use bcheck::{ Record, Transaction, TransactionType };
+//! 
+//! fn main() {
+//!     if let Ok(records) = Record::from_file("/Users/bob/Docuents/transactions.bcheck") {
+//!         for record in records {
+//!             println!("{}", record.vendor)
+//!         }
+//!     }
+//! }
+//! ```
+//! 
+//! The above code will attempt to load a file, according the Mac OS file structure, and print out the vendor field of each record.
 mod transaction_type;
 mod transaction;
 mod record;
