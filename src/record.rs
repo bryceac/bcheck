@@ -1,6 +1,7 @@
-use crate::transaction::Transaction;
+use crate::{ transaction::Transaction, transaction_type::TransactionType };
 use serde::{ Serialize, Deserialize };
 use uuid::Uuid;
+use ordered_float::OrderedFloat;
 
 #[derive(Serialize, Deserialize, Eq, PartialOrd, Ord)]
 pub struct Record {
@@ -31,6 +32,21 @@ impl Record {
                 }
             }
         }
+    }
+
+    pub fn balance(&self) -> OrderedFloat<f64> {
+        let mut value = OrderedFloat::from(0.0);
+
+        if let Some(previous_record) = &self.previous_record {
+            value = previous_record.balance();
+        }
+
+        match self.transaction.transaction_type {
+            TransactionType::DEPOSIT => value = value + self.transaction.amount,
+            TransactionType::WITHDRAWAL => value = value - self.transaction.amount
+        }
+        
+        return value
     }
 }
 
