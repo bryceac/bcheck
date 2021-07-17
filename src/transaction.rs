@@ -3,7 +3,7 @@ use crate::transaction_type::TransactionType;
 use chrono::prelude::*;
 use ordered_float::OrderedFloat;
 
-#[derive(Serialize, Deserialize, Eq, PartialOrd, Ord)]
+#[derive(Debug, Serialize, Deserialize, Eq, PartialOrd, Ord)]
 pub struct Transaction {
     #[serde(with = "transaction_date_format")]
     #[serde(default = "Local::now")]

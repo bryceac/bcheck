@@ -3,7 +3,7 @@ use serde::{ Serialize, Deserialize };
 use uuid::Uuid;
 use ordered_float::OrderedFloat;
 
-#[derive(Serialize, Deserialize, Eq, PartialOrd, Ord)]
+#[derive(Debug, Serialize, Deserialize, Eq, PartialOrd, Ord)]
 pub struct Record {
     #[serde(default = "default_id")]
     pub id: String,
