@@ -86,10 +86,10 @@ impl Record {
             Ok(content) => {
                 match serde_json::from_str::<Vec<Record>>(&content) {
                     Ok(decoded_records) => Ok(decoded_records),
-                    Err(error) => format!("{}", error)
+                    Err(error) => Err(format!("{}", error))
                 }
             },
-            Err(error) => format!("{}", error)
+            Err(error) => Err(format!("{}", error))
         }
     }
 
