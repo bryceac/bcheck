@@ -10,9 +10,9 @@ pub trait Save {
 impl Save for Vec<Record> {
     fn save(&self, path: &str) -> Result<(), Error> {
         let mut output = File::create(path)?;
-        let json_string = serde_json::to_string_pretty(self).map_err(serde::ser::Error::custom);
+        let json_string = serde_json::to_string_pretty(self)?;
 
-        write!(output, format!("{}", json_string));
+        write!(output, "{}", format!("{}", json_string));
         Ok(())
     }
 }
