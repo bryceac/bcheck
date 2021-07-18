@@ -25,6 +25,11 @@ pub use crate::transaction::Transaction as Transaction;
 pub use crate::transaction_type::TransactionType as TransactionType;
 pub use crate::record::Record as Record;
 pub use crate::save_vec::Save as Save;
+pub use serde;
+pub use chrono;
+pub use ordered_float;
+pub use serde_json;
+pub use uuid;
 
 #[cfg(test)]
 mod tests {
