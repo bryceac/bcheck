@@ -1,6 +1,5 @@
 use crate::Record;
 use std::{fs::File, io::{ Write, Error } };
-use serde;
 use serde_json;
 
 pub trait Save {
@@ -12,7 +11,9 @@ impl Save for Vec<Record> {
         let mut output = File::create(path)?;
         let json_string = serde_json::to_string_pretty(self)?;
 
-        write!(output, "{}", format!("{}", json_string));
-        Ok(())
+        match write!(output, "{}", format!("{}", json_string)) {
+            Ok(()) => Ok(()),
+            Err(error) => Err(error)
+        }  
     }
 }
