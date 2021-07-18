@@ -28,7 +28,7 @@ To use this library, add the following to your <strong>Cargo.toml</strong> file:
 
 <pre>
 [dependencies]
-bcheck = { git = "https://github.com/bryceac/bcheck" }
+bcheck = "0.1"
 </pre>
 
 Afterwards, it is as simple as putting in something like this, if you just need the Record type:
