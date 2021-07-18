@@ -17,7 +17,7 @@ use std::{fs::File, io::{ self, Read } };
 use serde_json;
 
 /// Represents an entry in a check register
-#[derive(Debug, Serialize, Deserialize, Eq, PartialOrd, Ord)]
+#[derive(Clone, Debug, Serialize, Deserialize, Eq, PartialOrd, Ord)]
 pub struct Record {
     /// record identifier.
     #[serde(default = "default_id")]

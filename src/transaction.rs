@@ -11,7 +11,7 @@ use chrono::prelude::*;
 use ordered_float::OrderedFloat;
 
 /// Represent a transaction made.
-#[derive(Debug, Serialize, Deserialize, Eq, PartialOrd, Ord)]
+#[derive(Clone, Debug, Serialize, Deserialize, Eq, PartialOrd, Ord)]
 pub struct Transaction {
     #[serde(with = "transaction_date_format")]
     #[serde(default = "Local::now")]
