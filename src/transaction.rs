@@ -16,6 +16,7 @@ pub struct Transaction {
     #[serde(with = "transaction_date_format")]
     #[serde(default = "Local::now")]
     pub date: DateTime<Local>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub check_number: Option<u32>,
     pub vendor: String,
     #[serde(default = "String::new", skip_serializing_if = "String::is_empty")]
