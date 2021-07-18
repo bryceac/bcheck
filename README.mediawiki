@@ -63,13 +63,15 @@ if let Err(error) = records.save("/Users/bob/Document/example.bcheck") {
 
 ===Contributing===
 
-Due to this being a work in progress, I would very much appreciate it if you can help contribute code, with the only major thing left being to save data to files.
-
-If you think you can help, feel free to fork this project and make a pull request.
+If you think you can help make this crate better, feel free to fork this project and make a pull request.
 
 Like the BCheckbook program, I will test the changes, to see if they work as they should.
 
 ===Support===
 
-Due to my limited Rust experience, in comparison to my experience with Rust, and the fact that this is a work in progress, 
-expect to be on your own for any complications.
+Due to my limited Rust experience, in comparison to my experience with Rust, I cannot provide much support, 
+so expect to be on your own.
+
+However, I can try to check things out, so feel free to contact me at the email below:
+
+tonyhawk2100@gmail.com
