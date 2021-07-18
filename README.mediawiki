@@ -78,4 +78,4 @@ tonyhawk2100@gmail.com
 
 ===Other===
 
-For convenience sake, dependencies are re exported, so that data can be handled externally.
+For the sake of convenience, some dependencies are re exported, so that data can be handled externally and the types provided can be easily created with Data.
