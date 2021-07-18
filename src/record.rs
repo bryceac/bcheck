@@ -72,7 +72,7 @@ impl Record {
      * This method attempts to read a file containing record data, returning a vector if successful, but will give out an error if something goes wrong, either with loading the file or parsing it.
     */
     pub fn from_file(f: &str) -> Result<Vec<Record>, String> {
-        if let Ok(content) = file_contents_from(f) {
+        /* if let Ok(content) = file_contents_from(f) {
             if let Ok(decoded_records) = serde_json::from_str::<Vec<Record>>(&content) {
                 Ok(decoded_records)
             } else {
@@ -80,6 +80,16 @@ impl Record {
             }
         } else {
             Err(String::from("Could not read file"))
+        } */
+
+        match file_contents_from(f) {
+            Ok(content) => {
+                match serde_json::from_str::<Vec<Record>>(&content) {
+                    Ok(decoded_records) => Ok(decoded_records),
+                    Err(error) => format!("{}", error)
+                }
+            },
+            Err(error) => format!("{}", error)
         }
     }
 
