@@ -75,3 +75,7 @@ so expect to be on your own.
 However, I can try to check things out, so feel free to contact me at the email below:
 
 tonyhawk2100@gmail.com
+
+===Other===
+
+For convenience sake, dependencies are re exported, so that data can be handled externally.
