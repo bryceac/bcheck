@@ -33,6 +33,7 @@ mod tests {
     use chrono::prelude::*;
     use ordered_float::OrderedFloat;
     use pretty_assertions::{assert_eq};
+    use crate::save_vec::Save;
 
     use serde_json;
     #[test]
@@ -94,5 +95,16 @@ mod tests {
         if let Ok(decoded_records) = serde_json::from_str::<Vec<Record>>(json) {
             assert_eq!(decoded_records, expected_record)
         }
+    }
+
+    #[test]
+    fn save_data() {
+        let expected_record: Vec<Record> = vec![
+            Record::from(String::from("FF04C3DC-F0FE-472E-8737-0F4034C049F0"), Transaction::from(Local.ymd(2021, 7, 8).and_hms(0, 0, 0), Some(1260 as u32), String::from("Sam Hill Credit Union"), String::from("Open Account"), OrderedFloat::<f64>(500 as f64), TransactionType::DEPOSIT, false), None),
+            Record::from(String::from("1422CBC6-7B0B-4584-B7AB-35167CC5647B"), Transaction::from(Local.ymd(2021, 7, 8).and_hms(0, 0, 0), None, String::from("Fake Street Electronics"), String::from("Head set"), OrderedFloat::<f64>(200 as f64), TransactionType::WITHDRAWAL, false), None),
+            Record::from(String::from("BB22187E-0BD3-41E8-B3D8-8136BD700865"), Transaction::from(Local.ymd(2021, 7, 8).and_hms(0, 0, 0), None, String::from("Velociraptor Entertainment"), String::new(), OrderedFloat::<f64>(50000 as f64), TransactionType::DEPOSIT, false), None)
+        ];
+
+        assert!(!expected_record.save("/Users/bryce/test.bcheck").is_err())
     }
 }
