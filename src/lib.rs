@@ -25,7 +25,7 @@ pub use crate::transaction::Transaction as Transaction;
 pub use crate::transaction_type::TransactionType as TransactionType;
 pub use crate::record::Record as Record;
 pub use crate::save_vec::Save as Save;
-pub use chrono::{ DateTime as DateTime, Local as Local };
+pub use chrono::Local as Local;
 pub use ordered_float::OrderedFloat as OrderedFloat;
 pub use uuid::Uuid as Uuid;
 
