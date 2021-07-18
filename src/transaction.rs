@@ -1,5 +1,5 @@
 // import Serde, so that type can be serialized and deserialized
-use serde::{ de, Serialize, Deserialize, Serializer, Deserializer };
+use serde::{ Serialize, Deserialize, Serializer, Deserializer };
 
 // import custom enumeration, so that is can be lined up properly.
 use crate::transaction_type::TransactionType;
