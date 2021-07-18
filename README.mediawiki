@@ -10,7 +10,7 @@
 
 ==Notes==
 
-This is currently a work in progress, with a stage of testing along the way, but <strong>should</strong> work without issue.
+This crate has been tested with Rust 1.53.0. It is not known if it will work in earlier versions, though it should if the dependencies are also backwards compatible.
 
 ===Why Create this library===
 
@@ -41,9 +41,25 @@ There ae two other types that can be used when needed, which are <strong>Transac
 
 These three should provide everything needed to parse bcheck files properly and do operations on them in code.
 
-If you utilize <a href="https://github.com/serde-rs/serde">serde</a> and <a href="https://github.com/maciejhirsz/serde_json">serde_json</a> in your program, 
-it <strong>should</strong> also be possible to create bcheck files too, but I am hoping to integrate that into this library, 
-when I can find out how to create extensions for vectors.
+====Saving Data====
+
+To save Data, the only thing that <strong>should</strong> be needed is to import the <strong>Save</strong> trait, in addition to the <strong>Record</strong> type, which will enable a save method on vectors of type Vec<Record>.
+
+This can done like this:
+
+<pre>
+use bcheck::{ Record, Save }
+</pre>
+
+Afterwards, it can be called like this:
+
+<pre>
+let records = vec![Record::new()];
+
+if let Err(error) = records.save("/Users/bob/Document/example.bcheck") {
+    println!("{}", error)
+}
+</pre>
 
 ===Contributing===
 
