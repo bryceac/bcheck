@@ -1,6 +1,6 @@
 use crate::Record;
-use serde_json;
 use std::{fs::File, io::{ Write, BufRead, BufReader, Error} };
+use serde_json;
 
 pub trait Save {
     fn save(&self, path: &str) -> Result<(), io::Error>
