@@ -47,7 +47,7 @@ impl Transaction {
     /**
      * Create a transaction object with given values.
      * # Example
-     * ```let transaction = Transaction::from(Local.ymd(2021, 7, 8).and_hms(0, 0, 0), Some(1260), "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::DEPOSIT, false);```
+     * ```let transaction = Transaction::from(None, Some(1260), "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::DEPOSIT, false);```
      */
     pub fn from(date: Option<&str>, check_number: Option<u32>, vendor: &str, memo: &str, amount: f64, transaction_type: TransactionType, is_reconciled: bool) -> Transaction {
         Transaction {
