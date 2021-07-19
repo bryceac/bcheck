@@ -49,9 +49,19 @@ impl Transaction {
      * # Example
      * ```let transaction = Transaction::from(Local.ymd(2021, 7, 8).and_hms(0, 0, 0), Some(1260), "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::DEPOSIT, false);```
      */
-    pub fn from(date: DateTime<Local>, check_number: Option<u32>, vendor: &str, memo: &str, amount: f64, transaction_type: TransactionType, is_reconciled: bool) -> Transaction {
+    pub fn from(date: Option<&str>, check_number: Option<u32>, vendor: &str, memo: &str, amount: f64, transaction_type: TransactionType, is_reconciled: bool) -> Transaction {
         Transaction {
-            date,
+            date: {
+                if let Some(date_string) = date {
+                    if let Ok(naive_date) = NaiveDate::parse_from_str(date_string, transaction_date_format::FORMAT) {
+                        Local.from_local_datetime(&naive_date.and_hms(0, 0, 0)).unwrap()
+                    } else {
+                        Local::now()
+                    }
+                } else {
+                    Local::now()
+                }
+            },
             check_number,
             vendor: String::from(vendor),
             memo: String::from(memo),
@@ -79,7 +89,7 @@ impl PartialEq for Transaction {
 mod transaction_date_format {
     use super::*;
 
-    const FORMAT: &'static str = "%Y-%m-%d";
+    pub const FORMAT: &'static str = "%Y-%m-%d";
 
     pub fn serialize<S>(date: &DateTime<Local>, serializer: S) -> Result<S::Ok, S::Error> where S: Serializer, {
         let date_string = format!("{}", date.format(&FORMAT));
