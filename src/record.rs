@@ -49,13 +49,13 @@ impl Record {
      * # Example
      * ```let record = Record::from(String::from("FF04C3DC-F0FE-472E-8737-0F4034C049F0"), Transaction::from(Local.ymd(2021, 7, 8).and_hms(0, 0, 0), Some(1260 as u32), String::from("Sam Hill Credit Union"), String::from("Open Account"), OrderedFloat::<f64>(500 as f64), TransactionType::DEPOSIT, false), None);```
     */
-    pub fn from(id: String, transaction: Transaction, previous_record: Option<Record>) -> Record {
+    pub fn from(id: &str, transaction: Transaction, previous_record: Option<Record>) -> Record {
         Record {
             id: {
                 if id.is_empty() {
                     default_id()
                 } else {
-                    id
+                    String::from(id)
                 }
             },
             transaction,
