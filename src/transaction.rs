@@ -56,7 +56,7 @@ impl Transaction {
             if transaction_date_format::is_proper_format(date_string) {
                 Ok(Transaction {
                     date: {
-                        let naive_date = NaiveDate::parse_from_str(date_string, transaction_date_format::FORMAT)?;
+                        let naive_date = NaiveDate::parse_from_str(date_string, transaction_date_format::FORMAT).unwrap();
                         Local.from_local_datetime(&naive_date.and_hms(0, 0, 0)).unwrap()
                     },
                     check_number,
