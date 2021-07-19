@@ -39,7 +39,7 @@ mod tests {
     use serde_json;
     #[test]
     fn serialize_record() {
-        let record = Record::from("FF04C3DC-F0FE-472E-8737-0F4034C049F0", Transaction::from(Local.ymd(2021, 7, 8).and_hms(0, 0, 0), Some(1260), "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::DEPOSIT, false).unwrap(), None);
+        let record = Record::from("FF04C3DC-F0FE-472E-8737-0F4034C049F0", Transaction::from(Some("2021-7-8"), Some(1260), "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::DEPOSIT, false).unwrap(), None);
 
         let expected_string = "{\n  \"id\": \"FF04C3DC-F0FE-472E-8737-0F4034C049F0\",\n  \"transaction\": {\n    \"date\": \"2021-07-08\",\n    \"check_number\": 1260,\n    \"vendor\": \"Sam Hill Credit Union\",\n    \"memo\": \"Open Account\",\n    \"amount\": 500.0,\n    \"type\": \"deposit\"\n  }\n}";
 
