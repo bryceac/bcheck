@@ -47,15 +47,15 @@ impl Transaction {
     /**
      * Create a transaction object with given values.
      * # Example
-     * ```let transaction = Transaction::from(Local.ymd(2021, 7, 8).and_hms(0, 0, 0), Some(1260 as u32), String::from("Sam Hill Credit Union"), String::from("Open Account"), OrderedFloat::<f64>(500 as f64), TransactionType::DEPOSIT, false);```
+     * ```let transaction = Transaction::from(Local.ymd(2021, 7, 8).and_hms(0, 0, 0), Some(1260), "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::DEPOSIT, false);```
      */
-    pub fn from(date: DateTime<Local>, check_number: Option<u32>, vendor: String, memo: String, amount: OrderedFloat<f64>, transaction_type: TransactionType, is_reconciled: bool) -> Transaction {
+    pub fn from(date: DateTime<Local>, check_number: Option<u32>, vendor: &str, memo: &str, amount: f64, transaction_type: TransactionType, is_reconciled: bool) -> Transaction {
         Transaction {
             date,
             check_number,
-            vendor,
-            memo,
-            amount,
+            vendor: String::from(vendor),
+            memo: String::from(memo),
+            amount: OrderedFloat(amount),
             transaction_type,
             is_reconciled
         }
