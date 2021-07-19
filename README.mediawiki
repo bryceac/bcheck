@@ -31,7 +31,7 @@ yet have everything I need at the of writing this.
 <dd>
 <p>Made it easier to create record objects, so that dependencies do not need to be exposed, 
 and remove unneeded re exports.</p>
-<p>Released 7/19/2021</dd>
+<p>Released 7/19/2021</p>
 </dd>
 </dl>
 
