@@ -10,6 +10,8 @@ use chrono::prelude::*;
 // import OrderedFloat, so that transactions can be compared by amount
 use ordered_float::OrderedFloat;
 
+use regex::Regex;
+
 /// Represent a transaction made.
 #[derive(Clone, Debug, Serialize, Deserialize, Eq, PartialOrd, Ord)]
 pub struct Transaction {
@@ -104,6 +106,12 @@ mod transaction_date_format {
         let local_datetime = Local.from_local_datetime(&naive_datetime).unwrap();
 
         Ok(local_datetime)
+    }
+
+    pub fn is_proper_format(s: &str) -> bool {
+        let re = Regex::new(r"^\d{4}-d{2}-d{2}$").unwrap();
+
+        re.is_match(s)
     }
 }
 
