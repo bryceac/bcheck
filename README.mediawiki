@@ -75,7 +75,3 @@ so expect to be on your own.
 However, I can try to check things out, so feel free to contact me at the email below:
 
 tonyhawk2100@gmail.com
-
-===Other===
-
-For the sake of convenience, some dependencies are re exported, so that data can be handled externally and the types provided can be easily created with specific data.
