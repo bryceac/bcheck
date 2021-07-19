@@ -51,25 +51,34 @@ impl Transaction {
      * # Example
      * ```let transaction = Transaction::from(None, Some(1260), "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::DEPOSIT, false);```
      */
-    pub fn from(date: Option<&str>, check_number: Option<u32>, vendor: &str, memo: &str, amount: f64, transaction_type: TransactionType, is_reconciled: bool) -> Transaction {
-        Transaction {
-            date: {
-                if let Some(date_string) = date {
-                    if let Ok(naive_date) = NaiveDate::parse_from_str(date_string, transaction_date_format::FORMAT) {
+    pub fn from(date: Option<&str>, check_number: Option<u32>, vendor: &str, memo: &str, amount: f64, transaction_type: TransactionType, is_reconciled: bool) -> Result<Transaction, String> {
+        if let Some(date_string) = date {
+            if transaction_date_format::is_proper_format(date_string) {
+                Ok(Transaction {
+                    date: {
+                        let naive_date = NaiveDate::parse_from_str(date_string, transaction_date_format::FORMAT)?;
                         Local.from_local_datetime(&naive_date.and_hms(0, 0, 0)).unwrap()
-                    } else {
-                        Local::now()
-                    }
-                } else {
-                    Local::now()
-                }
-            },
-            check_number,
-            vendor: String::from(vendor),
-            memo: String::from(memo),
-            amount: OrderedFloat(amount),
-            transaction_type,
-            is_reconciled
+                    },
+                    check_number,
+                    vendor: String::from(vendor),
+                    memo: String::from(memo),
+                    amount: OrderedFloat(amount),
+                    transaction_type,
+                    is_reconciled
+                })
+            } else {
+                Err(String::from("Date must be in the form of yyyy-mm-dd."))
+            }
+        } else {
+            Ok(Transaction {
+                date: Local::now(),
+                check_number,
+                vendor: String::from(vendor),
+                memo: String::from(memo),
+                amount: OrderedFloat(amount),
+                transaction_type,
+                is_reconciled
+            })
         }
     }
 }
