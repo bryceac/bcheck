@@ -47,7 +47,7 @@ impl Record {
      * Create a record object with given values.
      * If id is an empty String, an id will be generated for you.
      * # Example
-     * ```let record = Record::from(String::from("FF04C3DC-F0FE-472E-8737-0F4034C049F0"), Transaction::from(Local.ymd(2021, 7, 8).and_hms(0, 0, 0), Some(1260 as u32), String::from("Sam Hill Credit Union"), String::from("Open Account"), OrderedFloat::<f64>(500 as f64), TransactionType::DEPOSIT, false), None);```
+     * ```let record = Record::from("FF04C3DC-F0FE-472E-8737-0F4034C049F0", Transaction::from(Local.ymd(2021, 7, 8).and_hms(0, 0, 0), Some(1260 as u32), String::from("Sam Hill Credit Union"), String::from("Open Account"), OrderedFloat::<f64>(500 as f64), TransactionType::DEPOSIT, false), None);```
     */
     pub fn from(id: &str, transaction: Transaction, previous_record: Option<Record>) -> Record {
         Record {
