@@ -118,7 +118,7 @@ mod transaction_date_format {
     }
 
     pub fn is_proper_format(s: &str) -> bool {
-        let re = Regex::new(r"^\d{4}-d{2}-d{2}$").unwrap();
+        let re = Regex::new(r"^\d{4}-d{1,2}-d{1,2}$").unwrap();
 
         re.is_match(s)
     }
