@@ -26,7 +26,6 @@ pub use crate::transaction_type::TransactionType as TransactionType;
 pub use crate::record::Record as Record;
 pub use crate::save_vec::Save as Save;
 pub use chrono::Local as Local;
-pub use uuid::Uuid as Uuid;
 
 #[cfg(test)]
 mod tests {
