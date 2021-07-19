@@ -100,7 +100,7 @@ mod tests {
 
     #[test]
     fn transaction_throws_error_fix_with_improper_date() {
-        let transaction = Transaction::from(Some("2021-7-8"), Some(1260), "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::DEPOSIT, false);
+        let transaction = Transaction::from(Some("2021, 7, 8"), Some(1260), "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::DEPOSIT, false);
 
         assert!(transaction.is_err())
     }
