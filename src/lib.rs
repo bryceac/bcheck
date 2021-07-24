@@ -107,11 +107,11 @@ mod tests {
 
     #[test]
     fn parse_deposit_type_from_string() {
-        assert_eq!(TransactionType::from_str("deposit"), TransactionType::Deposit)
+        assert_eq!(TransactionType::from_str("deposit").unwrap(), TransactionType::Deposit)
     }
 
     fn parse_withdrawal_type_from_string() {
-        assert_eq!(TransactionType::from_str("withdrawal"), TransactionType::Withdrawal)
+        assert_eq!(TransactionType::from_str("withdrawal").unwrap(), TransactionType::Withdrawal)
     }
 
     fn parse_type_from_string_errors_out() {
