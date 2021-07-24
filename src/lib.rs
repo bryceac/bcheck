@@ -110,10 +110,12 @@ mod tests {
         assert_eq!(TransactionType::from_str("deposit").unwrap(), TransactionType::Deposit)
     }
 
+    #[test]
     fn parse_withdrawal_type_from_string() {
         assert_eq!(TransactionType::from_str("withdrawal").unwrap(), TransactionType::Withdrawal)
     }
 
+    #[test]
     fn parse_type_from_string_errors_out() {
         assert!(TransactionType::from_str("boo").is_err())
     }
