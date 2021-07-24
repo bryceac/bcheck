@@ -106,8 +106,8 @@ impl Record {
         }
 
         match self.transaction.transaction_type {
-            TransactionType::DEPOSIT => value = value + self.transaction.amount,
-            TransactionType::WITHDRAWAL => value = value - self.transaction.amount
+            TransactionType::Deposit => value = value + self.transaction.amount,
+            TransactionType::Withdrawal => value = value - self.transaction.amount
         }
         
         return value
