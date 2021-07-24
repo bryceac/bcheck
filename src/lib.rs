@@ -20,6 +20,7 @@ mod transaction_type;
 mod transaction;
 mod record;
 mod save_vec;
+mod transaction_type_parse_error;
 
 pub use crate::transaction::Transaction as Transaction;
 pub use crate::transaction_type::TransactionType as TransactionType;
