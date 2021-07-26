@@ -82,6 +82,14 @@ if let Err(error) = records.save("/Users/bob/Document/example.bcheck") {
 }
 </pre>
 
+===Creating Date objects===
+
+If you import the <strong>LocalDateTimeStringExt</strong> trait, dates can be created like this:
+
+<pre>
+"2021-7-26".local_dateime().unwrap()
+</pre>
+
 ===Contributing===
 
 If you think you can help make this crate better, feel free to fork this project and make a pull request.

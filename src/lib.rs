@@ -29,6 +29,7 @@ pub use crate::record::Record as Record;
 pub use crate::save_vec::Save as Save;
 pub use crate::local_datetime_from_string::LocalDateTimeExt as LocalDateTimeStringExt;
 pub use crate::transaction::transaction_date_format::is_proper_format as is_proper_date_format;
+pub use ordered_float::OrderedFloat as OrderedFloat;
 
 #[cfg(test)]
 mod tests {
