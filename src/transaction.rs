@@ -98,16 +98,23 @@ impl PartialEq for Transaction {
 }
 
 // create module to custom the serialization and deserialization of dates.
-mod transaction_date_format {
+/** 
+ * module containing stuff to deal with serializing, deserializing, and verifying dates.
+ * This module is only made public, to help ease verification of date format.
+ */
+pub mod transaction_date_format {
     use super::*;
 
+    /// the format for the date that is expected.
     pub const FORMAT: &'static str = "%Y-%m-%d";
 
+    /// serialize dates as strings. This is typically not used directly, as serde grabs it automatically.
     pub fn serialize<S>(date: &DateTime<Local>, serializer: S) -> Result<S::Ok, S::Error> where S: Serializer, {
         let date_string = format!("{}", date.format(&FORMAT));
         serializer.serialize_str(&date_string)
     }
 
+    /// deserialize dates from strings. Like the serialize method, this is typically never used.
     pub fn deserialize<'de, D>(deserializer: D) -> Result<DateTime<Local>, D::Error> where D: Deserializer<'de>, {
         let date_string = String::deserialize(deserializer)?;
         let naive_date = NaiveDate::parse_from_str(&date_string, FORMAT).map_err(serde::de::Error::custom)?;
@@ -118,6 +125,7 @@ mod transaction_date_format {
         Ok(local_datetime)
     }
 
+    /// verify a given string uses the appropriate date format.
     pub fn is_proper_format(s: &str) -> bool {
         let re = Regex::new(r"^\d{4}-\d{1,2}-\d{1,2}$").unwrap();
 
