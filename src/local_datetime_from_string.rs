@@ -1,6 +1,7 @@
 use chrono::prelude::*;
 use crate::is_proper_date_format;
 
+/// trait that allows object to become a datetime object.
 pub trait LocalDateTimeExt {
     fn local_datetime(&self) -> Result<DateTime<Local>, String>;
 }
