@@ -1,5 +1,4 @@
 use chrono::prelude::*;
-use std::io::Error;
 use crate::is_proper_date_format;
 
 pub trait LocalDateTimeExt {
