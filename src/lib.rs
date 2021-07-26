@@ -131,8 +131,13 @@ mod tests {
     }
 
     #[test]
-    fn parse_ate_from_string() {
+    fn parse_date_from_string() {
         assert!(!String::from("2021-7-28").local_datetime().is_err())
+    }
+
+    #[test]
+    fn parse_date_from_string_literal() {
+        assert!(!"2021-7-26".local_datetime().is_err())
     }
 
     #[test]
