@@ -4,12 +4,15 @@ use serde::{ Serialize, Deserialize, Serializer, Deserializer };
 // import custom enumeration, so that is can be lined up properly.
 use crate::transaction_type::TransactionType;
 
+use crate::LocalDateTimeStringExt;
+
 // import chrono crate, so that ate can be included in seriallization and properly set.
 use chrono::prelude::*;
 
 // import OrderedFloat, so that transactions can be compared by amount
 use ordered_float::OrderedFloat;
 
+// import to use regex verification
 use regex::Regex;
 
 /// Represent a transaction made.
@@ -54,21 +57,17 @@ impl Transaction {
      */
     pub fn from(date: Option<&str>, check_number: Option<u32>, vendor: &str, memo: &str, amount: f64, transaction_type: TransactionType, is_reconciled: bool) -> Result<Transaction, String> {
         if let Some(date_string) = date {
-            if transaction_date_format::is_proper_format(date_string) {
-                Ok(Transaction {
-                    date: {
-                        let naive_date = NaiveDate::parse_from_str(date_string, transaction_date_format::FORMAT).unwrap();
-                        Local.from_local_datetime(&naive_date.and_hms(0, 0, 0)).unwrap()
-                    },
+            match date_string.local_datetime() {
+                Ok(date_time) => Ok(Transaction {
+                    date: date_time,
                     check_number,
                     vendor: String::from(vendor),
                     memo: String::from(memo),
                     amount: OrderedFloat(amount),
                     transaction_type,
                     is_reconciled
-                })
-            } else {
-                Err(String::from("Date must be in the form of yyyy-mm-dd."))
+                }),
+                Err(error) => Err(error)
             }
         } else {
             Ok(Transaction {
