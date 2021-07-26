@@ -16,6 +16,7 @@
 //! ```
 //! 
 //! The above code will attempt to load a file, according the Mac OS file structure, and print out the vendor field of each record.
+mod local_datetime_from_string;
 mod transaction_type;
 mod transaction;
 mod record;
