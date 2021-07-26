@@ -27,6 +27,7 @@ pub use crate::transaction::Transaction as Transaction;
 pub use crate::transaction_type::TransactionType as TransactionType;
 pub use crate::record::Record as Record;
 pub use crate::save_vec::Save as Save;
+pub use crate::local_datetime_from_string::LocalDateTimeExt as LocalDateTimeStringExt;
 pub use crate::transaction::transaction_date_format::is_proper_format as is_proper_date_format;
 
 #[cfg(test)]
@@ -35,6 +36,7 @@ mod tests {
     use crate::transaction::Transaction;
     use crate::transaction_type::TransactionType;
     use crate::is_proper_date_format;
+    use crate::LocalDateTimeStringExt;
     use pretty_assertions::{assert_eq};
     use crate::save_vec::Save;
     use std::str::FromStr;
@@ -126,6 +128,11 @@ mod tests {
     #[test]
     fn verify_date_string_checking_function() {
         assert!(is_proper_date_format("2021-7-26"))
+    }
+
+    #[test]
+    fn parse_ate_from_string() {
+        assert!(!String::from("2021-7-28").local_datetime().is_err())
     }
 
     #[test]
