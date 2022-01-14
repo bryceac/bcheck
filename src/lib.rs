@@ -43,6 +43,29 @@ mod tests {
     use std::str::FromStr;
 
     use serde_json;
+
+    #[test]
+    fn create_record_with_category() {
+        let record = Record::from("FF04C3DC-F0FE-472E-8737-0F4034C049F0", Transaction::from(Some("2021-7-8"), Some(1260), Some("Opening Balance"), "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::Deposit, false).unwrap());
+
+        let expected_category = String::from("Opening Balance");
+
+        if let Some(category) = record.transaction.category {
+            assert_eq!(category, expected_category)
+        }
+    }
+
+    #[test]
+    fn serialize_record_containing_category() {
+        let record = Record::from("FF04C3DC-F0FE-472E-8737-0F4034C049F0", Transaction::from(Some("2021-7-8"), Some(1260), Some("Opening Balance"), "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::Deposit, false).unwrap());
+
+        let expected_string = "{\n  \"id\": \"FF04C3DC-F0FE-472E-8737-0F4034C049F0\",\n  \"transaction\": {\n    \"date\": \"2021-07-08\",\n    \"check_number\": 1260,\n \"category\": \"Opening Balance\",\n \"vendor\": \"Sam Hill Credit Union\",\n    \"memo\": \"Open Account\",\n    \"amount\": 500.0,\n    \"type\": \"deposit\"\n  }\n}";
+
+        if let Ok(json) = serde_json::to_string_pretty(&record) {
+            assert_eq!(json, expected_string)
+        }
+    }
+
     #[test]
     fn serialize_record() {
         let record = Record::from("FF04C3DC-F0FE-472E-8737-0F4034C049F0", Transaction::from(Some("2021-7-8"), Some(1260), None, "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::Deposit, false).unwrap());
