@@ -44,6 +44,7 @@ and remove unneeded re exports.</p>
 <dt style="font-weight:bold">0.3</dt>
 <dd>
 <p>Update Transaction model to reflect the current state of the bcheck format.</p>
+<p>Released 1/13/2022</p>
 </dd>
 </dl>
 
