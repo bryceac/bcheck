@@ -23,6 +23,8 @@ pub struct Transaction {
     pub date: DateTime<Local>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub check_number: Option<u32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub category: Option<String>,
     pub vendor: String,
     #[serde(default = "String::new", skip_serializing_if = "String::is_empty")]
     pub memo: String,
@@ -40,6 +42,7 @@ impl Transaction {
         Transaction {
             date: Local::now(),
             check_number: None,
+            category: None,
             vendor: String::new(),
             memo: String::new(),
             amount: default_float(),
@@ -55,12 +58,17 @@ impl Transaction {
      * # Example
      * ```let transaction = Transaction::from(None, Some(1260), "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::Deposit, false);```
      */
-    pub fn from(date: Option<&str>, check_number: Option<u32>, vendor: &str, memo: &str, amount: f64, transaction_type: TransactionType, is_reconciled: bool) -> Result<Transaction, String> {
+    pub fn from(date: Option<&str>, check_number: Option<u32>, category: Option<&str>, vendor: &str, memo: &str, amount: f64, transaction_type: TransactionType, is_reconciled: bool) -> Result<Transaction, String> {
         if let Some(date_string) = date {
             match date_string.local_datetime() {
                 Ok(date_time) => Ok(Transaction {
                     date: date_time,
                     check_number,
+                    category: if let Some(category) = category {
+                        Some(String::from(category))
+                    } else {
+                        None
+                    },
                     vendor: String::from(vendor),
                     memo: String::from(memo),
                     amount: OrderedFloat(amount),
@@ -73,6 +81,11 @@ impl Transaction {
             Ok(Transaction {
                 date: Local::now(),
                 check_number,
+                category: if let Some(category) = category {
+                    Some(String::from(category))
+                } else {
+                    None
+                },
                 vendor: String::from(vendor),
                 memo: String::from(memo),
                 amount: OrderedFloat(amount),
@@ -88,6 +101,7 @@ impl PartialEq for Transaction {
     fn eq(&self, other: &Self) -> bool {
         self.date == other.date && 
         self.check_number == other.check_number &&
+        self.category == other.category &&
         self.vendor == other.vendor &&
         self.memo == other.memo &&
         self.amount == other.amount &&

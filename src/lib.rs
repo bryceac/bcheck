@@ -45,7 +45,7 @@ mod tests {
     use serde_json;
     #[test]
     fn serialize_record() {
-        let record = Record::from("FF04C3DC-F0FE-472E-8737-0F4034C049F0", Transaction::from(Some("2021-7-8"), Some(1260), "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::Deposit, false).unwrap());
+        let record = Record::from("FF04C3DC-F0FE-472E-8737-0F4034C049F0", Transaction::from(Some("2021-7-8"), Some(1260), None, "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::Deposit, false).unwrap());
 
         let expected_string = "{\n  \"id\": \"FF04C3DC-F0FE-472E-8737-0F4034C049F0\",\n  \"transaction\": {\n    \"date\": \"2021-07-08\",\n    \"check_number\": 1260,\n    \"vendor\": \"Sam Hill Credit Union\",\n    \"memo\": \"Open Account\",\n    \"amount\": 500.0,\n    \"type\": \"deposit\"\n  }\n}";
 
@@ -59,9 +59,9 @@ mod tests {
     #[test]
     fn deserialize_records() {
         let expected_record: Vec<Record> = vec![
-            Record::from("FF04C3DC-F0FE-472E-8737-0F4034C049F0", Transaction::from(Some("2021-7-8"), Some(1260), "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::Deposit, false).unwrap()),
-            Record::from("1422CBC6-7B0B-4584-B7AB-35167CC5647B", Transaction::from(Some("2021-7-8"), None, "Fake Street Electronics", "Head set", 200 as f64, TransactionType::Withdrawal, false).unwrap()),
-            Record::from("BB22187E-0BD3-41E8-B3D8-8136BD700865", Transaction::from(Some("2021-7-8"), None, "Velociraptor Entertainment", "", 50000 as f64, TransactionType::Deposit, false).unwrap())
+            Record::from("FF04C3DC-F0FE-472E-8737-0F4034C049F0", Transaction::from(Some("2021-7-8"), Some(1260), None, "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::Deposit, false).unwrap()),
+            Record::from("1422CBC6-7B0B-4584-B7AB-35167CC5647B", Transaction::from(Some("2021-7-8"), None, None, "Fake Street Electronics", "Head set", 200 as f64, TransactionType::Withdrawal, false).unwrap()),
+            Record::from("BB22187E-0BD3-41E8-B3D8-8136BD700865", Transaction::from(Some("2021-7-8"), None, None, "Velociraptor Entertainment", "", 50000 as f64, TransactionType::Deposit, false).unwrap())
         ];
 
         let json = r#"
@@ -106,7 +106,7 @@ mod tests {
 
     #[test]
     fn transaction_throws_error_fix_with_improper_date() {
-        let transaction = Transaction::from(Some("2021, 7, 8"), Some(1260), "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::Deposit, false);
+        let transaction = Transaction::from(Some("2021, 7, 8"), Some(1260), None, "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::Deposit, false);
 
         assert!(transaction.is_err())
     }
@@ -144,9 +144,9 @@ mod tests {
     #[test]
     fn save_data() {
         let expected_record: Vec<Record> = vec![
-            Record::from("FF04C3DC-F0FE-472E-8737-0F4034C049F0", Transaction::from(Some("2021-7-8"), Some(1260), "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::Deposit, false).unwrap()),
-            Record::from("1422CBC6-7B0B-4584-B7AB-35167CC5647B", Transaction::from(Some("2021-7-8"), None, "Fake Street Electronics", "Head set", 200 as f64, TransactionType::Withdrawal, false).unwrap()),
-            Record::from("BB22187E-0BD3-41E8-B3D8-8136BD700865", Transaction::from(Some("2021-7-8"), None, "Velociraptor Entertainment", "", 50000 as f64, TransactionType::Deposit, false).unwrap())
+            Record::from("FF04C3DC-F0FE-472E-8737-0F4034C049F0", Transaction::from(Some("2021-7-8"), Some(1260), None, "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::Deposit, false).unwrap()),
+            Record::from("1422CBC6-7B0B-4584-B7AB-35167CC5647B", Transaction::from(Some("2021-7-8"), None, None, "Fake Street Electronics", "Head set", 200 as f64, TransactionType::Withdrawal, false).unwrap()),
+            Record::from("BB22187E-0BD3-41E8-B3D8-8136BD700865", Transaction::from(Some("2021-7-8"), None, None, "Velociraptor Entertainment", "", 50000 as f64, TransactionType::Deposit, false).unwrap())
         ];
 
         assert!(!expected_record.save("test.bcheck").is_err())
