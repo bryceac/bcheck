@@ -15,6 +15,8 @@ use ordered_float::OrderedFloat;
 // import to use regex verification
 use regex::Regex;
 
+use std::fmt;
+
 /// Represent a transaction made.
 #[derive(Clone, Debug, Serialize, Deserialize, Eq, PartialOrd, Ord)]
 pub struct Transaction {
@@ -94,6 +96,51 @@ impl Transaction {
             })
         }
     }
+
+    pub fn to_string(&self) -> String {
+        let mut transaction_string = String::new();
+
+        let date_string = format!("{}\t", self.date.format("%Y-%m-%d"));
+
+        transaction_string.push_str(&date_string);
+
+        if let Some(check_number) = self.check_number {
+            let check_number_string = format!("{}\t", check_number);
+            transaction_string.push_str(&check_number_string);
+        } else {
+            transaction_string.push_str("\t");
+        }
+
+        transaction_string.push_str(if self.is_reconciled {
+            "Y\t"
+        } else { "N\t" });
+
+        if let Some(category) = self.category.clone() {
+            let category_string = format!("{}\t", category);
+
+            transaction_string.push_str(&category_string);
+        } else {
+            transaction_string.push_str("\t");
+        }
+
+        let vendor_string = format!("{}\t", self.vendor);
+
+        transaction_string.push_str(&vendor_string);
+
+        let memo_string = format!("{}\t", self.memo);
+
+        transaction_string.push_str(&memo_string);
+
+        let amount_string = if let TransactionType::Withdrawal = self.transaction_type {
+            format!("\t{:.2}", self.amount)
+        } else {
+            format!("{:.2}\t", self.amount)
+        };
+
+        transaction_string.push_str(&amount_string);
+
+        return transaction_string;
+    }
 }
 
 // implement trait need to deal with equality
@@ -109,6 +156,13 @@ impl PartialEq for Transaction {
         self.is_reconciled == other.is_reconciled
     }
 }
+
+// implement trait needed to display item as string
+/* impl fmt::Display for Transaction {
+    fn fmt(&self, &mut fmt::Formatter) -> fmt::Result {
+        
+    }
+} */
 
 // create module to custom the serialization and deserialization of dates.
 /** 
