@@ -100,6 +100,20 @@ impl Record {
         }
     }
 
+    #[cfg(target_os = "windows")]
+    pub fn from_tsv_file(f: &str) -> Result<Vec<Record>, String> {
+        match file_contents_from(f) {
+            Ok(content) => {
+                let lines: Vec<&str> = content.split("\r\n").collect();
+
+                let records: Vec<Record> = lines.iter().map(|line| Record::from_string(line)).collect();
+
+                Ok(records)
+            },
+            Err(error) => Err(format!("{}", error))
+        }
+    }
+
     /// presents a string version of the record.
     pub fn to_string(&self) -> String {
         format!("{}\t{}", self.id, self.transaction)
