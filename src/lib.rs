@@ -222,12 +222,23 @@ mod tests {
 
     #[test]
     fn save_data() {
-        let expected_record: Vec<Record> = vec![
+        let records: Vec<Record> = vec![
             Record::from("FF04C3DC-F0FE-472E-8737-0F4034C049F0", Transaction::from(Some("2021-7-8"), Some(1260), None, "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::Deposit, false).unwrap()),
             Record::from("1422CBC6-7B0B-4584-B7AB-35167CC5647B", Transaction::from(Some("2021-7-8"), None, None, "Fake Street Electronics", "Head set", 200 as f64, TransactionType::Withdrawal, false).unwrap()),
             Record::from("BB22187E-0BD3-41E8-B3D8-8136BD700865", Transaction::from(Some("2021-7-8"), None, None, "Velociraptor Entertainment", "", 50000 as f64, TransactionType::Deposit, false).unwrap())
         ];
 
-        assert!(!expected_record.save("test.bcheck").is_err())
+        assert!(!records.save("test.bcheck").is_err())
+    }
+
+    #[test]
+    fn save_tsv_data() {
+        let records: Vec<Record> = vec![
+            Record::from("FF04C3DC-F0FE-472E-8737-0F4034C049F0", Transaction::from(Some("2021-7-8"), Some(1260), None, "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::Deposit, false).unwrap()),
+            Record::from("1422CBC6-7B0B-4584-B7AB-35167CC5647B", Transaction::from(Some("2021-7-8"), None, None, "Fake Street Electronics", "Head set", 200 as f64, TransactionType::Withdrawal, false).unwrap()),
+            Record::from("BB22187E-0BD3-41E8-B3D8-8136BD700865", Transaction::from(Some("2021-7-8"), None, None, "Velociraptor Entertainment", "", 50000 as f64, TransactionType::Deposit, false).unwrap())
+        ];
+
+        assert!(!records.save_tsv("test.tsv").is_err())
     }
 }
