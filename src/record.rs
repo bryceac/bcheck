@@ -67,6 +67,24 @@ impl Record {
         }
     }
 
+    pub fn from_string(s: &str) -> Record {
+        let components: Vec<&str> = s.split('\t').collect();
+
+        let mut transaction_components = components.clone();
+        transaction_components.remove(0);
+
+        let transaction_string: String = transaction_components.iter().map(|e| e.to_string() + "\t").collect();
+
+        Record {
+            id: if components[0].to_string().is_empty() {
+                default_id()
+            } else {
+                components[0].to_string()
+            },
+            transaction: Transaction::from_string(&transaction_string)
+        }
+    }
+
     /// presents a string version of the record.
     pub fn to_string(&self) -> String {
         format!("{}\t{}", self.id, self.transaction)
