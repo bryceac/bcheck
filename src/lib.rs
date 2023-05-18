@@ -175,7 +175,7 @@ mod tests {
 
     #[test]
     fn withdrawal_transaction_to_string() {
-        let expected_string = "2021-07-08\t\tN\tGifts\tFake Street Electronics\tHead set\t\t200.00";
+        let expected_string = "2021-07-08\t\tN\t\tFake Street Electronics\tHead set\t\t200.00";
         let transaction = Transaction::from(Some("2021-7-8"), None, None, "Fake Street Electronics", "Head set", 200 as f64, TransactionType::Withdrawal, false).unwrap();
 
         assert!(transaction.to_string() == expected_string)
