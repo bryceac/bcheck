@@ -114,6 +114,13 @@ if let Ok(records) = Record::from_tsv_file("/Users/bob/Documents/example.bcheck"
 
 This loads records from a TSV file.
 
+Please note that TSV support was coded in a way 
+that it expects 9 columns in total, though some fields can be empty.
+
+As such, it is recommended that you produce the TSV in 
+MS Excel or LibreOffice, 
+so that you can verify that you have the appropriate number of tabs.
+
 ===Creating Date objects===
 
 If you import the <strong>LocalDateTimeStringExt</strong> trait, dates can be created like this:
