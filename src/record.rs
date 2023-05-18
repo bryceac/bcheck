@@ -66,14 +66,17 @@ impl Record {
             Err(error) => Err(format!("{}", error))
         }
     }
+
+    pub fn to_string(&self) -> String {
+        format!("{}\t{}", self.id, self.transaction)
+    }
 }
 
 // apply trait to get item to be representable by string
 impl fmt::Display for Record {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let record_string = format!("{}\t{}", self.id, self.transaction);
 
-        write!(f, "{}", record_string)
+        write!(f, "{}", self.to_string())
     }
 }
 
