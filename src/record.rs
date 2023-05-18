@@ -86,25 +86,16 @@ impl Record {
         }
     }
 
-    #[cfg(target_os = "unix")]
+    /** this method does the same thing as from_file() and operates like it, 
+     but is for use with tsv files, while the former assumes json. */
     pub fn from_tsv_file(f: &str) -> Result<Vec<Record>, String> {
         match file_contents_from(f) {
             Ok(content) => {
-                let lines: Vec<&str> = content.split('\n').collect();
-
-                let records: Vec<Record> = lines.iter().map(|line| Record::from_string(line)).collect();
-
-                Ok(records)
-            },
-            Err(error) => Err(format!("{}", error))
-        }
-    }
-
-    #[cfg(target_os = "windows")]
-    pub fn from_tsv_file(f: &str) -> Result<Vec<Record>, String> {
-        match file_contents_from(f) {
-            Ok(content) => {
-                let lines: Vec<&str> = content.split("\r\n").collect();
+                let lines: Vec<&str> = if cfg!(target_os = "unix") {
+                    content.split('\n').collect()
+                } else {
+                    content.split("\r\n").collect()
+                };
 
                 let records: Vec<Record> = lines.iter().map(|line| Record::from_string(line)).collect();
 
