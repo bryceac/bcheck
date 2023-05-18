@@ -170,9 +170,6 @@ mod tests {
 
         let transaction = Transaction::from(Some("2021-7-8"), Some(1260), Some("Opening Balance"), "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::Deposit, true).unwrap();
 
-        println!("{}", expected_string);
-        println!("{}", transaction.to_string());
-
         assert!(transaction.to_string() == expected_string)
     }
 
