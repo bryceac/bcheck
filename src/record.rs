@@ -8,7 +8,7 @@ use serde::{ Serialize, Deserialize };
 use uuid::Uuid;
 
 // import File and io stuff, so that data can be loaded from a file.
-use std::{fs::File, io::{ self, Read } };
+use std::{fs::File, fmt, io::{ self, Read } };
 
 // import serde_json crate, to facilitate deserialization from JSON.
 use serde_json;
@@ -75,6 +75,15 @@ impl Record {
             },
             Err(error) => Err(format!("{}", error))
         }
+    }
+}
+
+// apply trait to get item to be representable by string
+impl fmt::Display for Record {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let record_string = format!("{}\t{}", self.id, self.transaction);
+
+        write!(f, "{}", record_string)
     }
 }
 
