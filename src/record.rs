@@ -67,6 +67,7 @@ impl Record {
         }
     }
 
+    /// create a record directly from a string.
     pub fn from_string(s: &str) -> Record {
         let components: Vec<&str> = s.split('\t').collect();
 

@@ -97,6 +97,7 @@ impl Transaction {
         }
     }
 
+    /// create a transaction directly from a string.
     pub fn from_string(s: &str) -> Transaction {
         let components: Vec<&str> = s.split('\t').collect();
 
