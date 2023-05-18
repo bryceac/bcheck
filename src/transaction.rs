@@ -115,18 +115,24 @@ impl Transaction {
                     None
                 }
             },
-            category: if components[2].to_string().is_empty() {
+            category: if components[3].to_string().is_empty() {
                 None
             } else {
-                Some(components[2].to_string())
+                Some(components[3].to_string())
             },
-            vendor: components[3].to_string(),
-            memo: components[4].to_string(),
-            amount: if components[5].to_string().is_empty() {
-                OrderedFloat(components[6].parse::<f64>().ok().unwrap_or_else(|| 0.0))
+            vendor: components[4].to_string(),
+            memo: components[5].to_string(),
+            amount: if components[6].to_string().is_empty() {
+                OrderedFloat(components[7].parse::<f64>().ok().unwrap_or_else(|| 0.0))
             } else {
-                OrderedFloat(components[5].parse::<f64>().ok().unwrap_or_else(|| 0.0))
-            }
+                OrderedFloat(components[6].parse::<f64>().ok().unwrap_or_else(|| 0.0))
+            },
+            transaction_type: if components[6].to_string().is_empty() {
+                TransactionType::Withdrawal
+            } else {
+                TransactionType::Withdrawal
+            },
+            is_reconciled: components[2].to_string() == "Y"
         }
     }
 
