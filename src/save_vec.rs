@@ -26,7 +26,6 @@ impl Save for Vec<Record> {
         }  
     }
 
-    #[cfg(target_os = "unix")]
     fn save_tsv(&self, path: &str) -> Result<(), Error> {
         let mut output = File::create(path)?;
         let tsv_string: String = self.iter().map(|record| record.to_string() + "\n").collect();
@@ -38,7 +37,7 @@ impl Save for Vec<Record> {
     }
 }
 
-#[cfg(target_os = "windows")]
+#[cfg(target_os = "widows")]
 impl Save for Vec<Record> {
     fn save(&self, path: &str) -> Result<(), Error> {
         let mut output = File::create(path)?;
