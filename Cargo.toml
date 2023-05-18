@@ -8,7 +8,7 @@ description = "library that can read and write bcheck and tsv files, which are g
 homepage = "https://gthub.com/bryceac/bcheck"
 readme = "README.mediawiki"
 repository = "https://github.com/bryceac/bcheck"
-keywords = ["bcheck", "json", "bcheckbook"]
+keywords = ["bcheck", "json", "bcheckbook", "tsv"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
