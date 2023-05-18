@@ -26,7 +26,13 @@ mod transaction_type_parse_error;
 pub use crate::transaction::Transaction as Transaction;
 pub use crate::transaction_type::TransactionType as TransactionType;
 pub use crate::record::Record as Record;
+
+#[cfg(target_os = "unix")]
 pub use crate::save_vec::Save as Save;
+
+#[cfg(target_os = "windows")]
+pub use crate::win_save_vec::WinSave as Save;
+
 pub use crate::local_datetime_from_string::LocalDateTimeExt as LocalDateTimeStringExt;
 pub use crate::transaction::transaction_date_format::is_proper_format as is_proper_date_format;
 pub use ordered_float::OrderedFloat as OrderedFloat;
