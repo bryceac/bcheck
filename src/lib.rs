@@ -190,6 +190,23 @@ mod tests {
     }
 
     #[test]
+    fn deposit_transaction_from_string() {
+        let transaction_string = "2021-07-08\t1260\tY\tOpening Balance\tSam Hill Credit Union\tOpen Account\t500.00\t";
+
+        let expected_transaction = Transaction::from(Some("2021-7-8"), Some(1260), Some("Opening Balance"), "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::Deposit, true).unwrap();
+
+        assert_eq!(Transaction::from_string(transaction_string), expected_transaction)
+    }
+
+    #[test]
+    fn withdrawal_transaction_from_string() {
+        let transaction_string = "2021-07-08\t\tN\tGifts\tFake Street Electronics\tHead set\t\t200.00";
+        let expected_transaction = Transaction::from(Some("2021-7-8"), None, Some("Gifts"), "Fake Street Electronics", "Head set", 200 as f64, TransactionType::Withdrawal, false).unwrap();
+
+        assert_eq!(Transaction::from_string(transaction_string), expected_transaction)
+    }
+
+    #[test]
     fn save_data() {
         let expected_record: Vec<Record> = vec![
             Record::from("FF04C3DC-F0FE-472E-8737-0F4034C049F0", Transaction::from(Some("2021-7-8"), Some(1260), None, "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::Deposit, false).unwrap()),
