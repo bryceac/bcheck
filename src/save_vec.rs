@@ -14,7 +14,6 @@ pub trait Save {
 }
 
 // add implementation of Save trait to Vector of Records.
-#[cfg(target_os = "unix")]
 impl Save for Vec<Record> {
     fn save(&self, path: &str) -> Result<(), Error> {
         let mut output = File::create(path)?;
@@ -35,20 +34,8 @@ impl Save for Vec<Record> {
             Err(error) => Err(error)
         } 
     }
-}
 
-#[cfg(target_os = "widows")]
-impl Save for Vec<Record> {
-    fn save(&self, path: &str) -> Result<(), Error> {
-        let mut output = File::create(path)?;
-        let json_string = serde_json::to_string_pretty(self)?;
-
-        match write!(output, "{}", format!("{}", json_string)) {
-            Ok(()) => Ok(()),
-            Err(error) => Err(error)
-        }  
-    }
-
+    /* #[cfg(target_os = "windows")]
     fn save_tsv(&self, path: &str) -> Result<(), Error> {
         let mut output = File::create(path)?;
         let tsv_string: String = self.iter().map(|record| record.to_string() + "\r\n").collect();
@@ -57,5 +44,5 @@ impl Save for Vec<Record> {
             Ok(()) => Ok(()),
             Err(error) => Err(error)
         } 
-    }
+    } */
 }
