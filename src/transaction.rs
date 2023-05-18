@@ -15,6 +15,7 @@ use ordered_float::OrderedFloat;
 // import to use regex verification
 use regex::Regex;
 
+// import to allow formatting as string.
 use std::fmt;
 
 /// Represent a transaction made.
