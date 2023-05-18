@@ -67,6 +67,7 @@ impl Record {
         }
     }
 
+    /// presents a string version of the record.
     pub fn to_string(&self) -> String {
         format!("{}\t{}", self.id, self.transaction)
     }

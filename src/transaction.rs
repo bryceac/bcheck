@@ -97,6 +97,7 @@ impl Transaction {
         }
     }
 
+    /// presents a string version of the transaction.
     pub fn to_string(&self) -> String {
         let mut transaction_string = String::new();
 
