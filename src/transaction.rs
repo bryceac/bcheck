@@ -97,6 +97,39 @@ impl Transaction {
         }
     }
 
+    pub fn from_string(s: &str) -> Transaction {
+        let components: Vec<&str> = s.split('\t').collect();
+
+        Transaction {
+            date: if let Ok(transaction_date) = components[0].to_string().local_datetime() {
+                transaction_date
+            } else {
+                Local::now()
+            },
+            check_number: if components[1].to_string().is_empty() {
+                None
+            } else {
+                if let Ok(value) = components[1].parse::<u32>() {
+                    Some(value)
+                } else {
+                    None
+                }
+            },
+            category: if components[2].to_string().is_empty() {
+                None
+            } else {
+                Some(components[2].to_string())
+            },
+            vendor: components[3].to_string(),
+            memo: components[4].to_string(),
+            amount: if components[5].to_string().is_empty() {
+                OrderedFloat(components[6].parse::<f64>().ok().unwrap_or_else(|| 0.0))
+            } else {
+                OrderedFloat(components[5].parse::<f64>().ok().unwrap_or_else(|| 0.0))
+            }
+        }
+    }
+
     /// presents a string version of the transaction.
     pub fn to_string(&self) -> String {
         let mut transaction_string = String::new();
