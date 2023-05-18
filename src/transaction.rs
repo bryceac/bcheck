@@ -108,7 +108,7 @@ impl Transaction {
             let check_number_string = format!("{}\t", check_number);
             transaction_string.push_str(&check_number_string);
         } else {
-            transaction_string.push_str("\t");
+            transaction_string.push_str("\t\t");
         }
 
         transaction_string.push_str(if self.is_reconciled {
