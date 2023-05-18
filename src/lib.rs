@@ -168,7 +168,7 @@ mod tests {
     fn deposit_transaction_to_string() {
         let expected_string = String::from("2021-07-08\t1260\tY\tOpening Balance\tSam Hill Credit Union\tOpen Account\t500.00\t");
 
-        let transaction = Transaction::from(Some("2021-7-8"), Some(1260), None, "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::Deposit, true).unwrap();
+        let transaction = Transaction::from(Some("2021-7-8"), Some(1260), Some("Opening Balance"), "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::Deposit, true).unwrap();
 
         println!("{}", expected_string);
         println!("{}", transaction.to_string());
