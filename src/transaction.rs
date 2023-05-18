@@ -130,7 +130,7 @@ impl Transaction {
             transaction_type: if components[6].to_string().is_empty() {
                 TransactionType::Withdrawal
             } else {
-                TransactionType::Withdrawal
+                TransactionType::Deposit
             },
             is_reconciled: components[2].to_string() == "Y"
         }
