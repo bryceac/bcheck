@@ -158,11 +158,11 @@ impl PartialEq for Transaction {
 }
 
 // implement trait needed to display item as string
-/* impl fmt::Display for Transaction {
-    fn fmt(&self, &mut fmt::Formatter) -> fmt::Result {
-        
+impl fmt::Display for Transaction {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}", self.to_string())
     }
-} */
+}
 
 // create module to custom the serialization and deserialization of dates.
 /** 
