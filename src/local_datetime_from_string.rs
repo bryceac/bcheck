@@ -11,7 +11,7 @@ impl LocalDateTimeExt for String {
         if is_proper_date_format(self) {
             let naive_date = NaiveDate::parse_from_str(self, crate::transaction::transaction_date_format::FORMAT).unwrap();
 
-            let naive_datetime = naive_date.and_hms(0, 0, 0);
+            let naive_datetime = naive_date.and_hms_opt(0, 0, 0).unwrap();
 
             let local_datetime = Local.from_local_datetime(&naive_datetime).unwrap();
 
@@ -28,7 +28,7 @@ impl LocalDateTimeExt for str {
         if is_proper_date_format(self) {
             let naive_date = NaiveDate::parse_from_str(self, crate::transaction::transaction_date_format::FORMAT).unwrap();
 
-            let naive_datetime = naive_date.and_hms(0, 0, 0);
+            let naive_datetime = naive_date.and_hms_opt(0, 0, 0).unwrap();
 
             let local_datetime = Local.from_local_datetime(&naive_datetime).unwrap();
 

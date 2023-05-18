@@ -185,7 +185,7 @@ pub mod transaction_date_format {
     pub fn deserialize<'de, D>(deserializer: D) -> Result<DateTime<Local>, D::Error> where D: Deserializer<'de>, {
         let date_string = String::deserialize(deserializer)?;
         let naive_date = NaiveDate::parse_from_str(&date_string, FORMAT).map_err(serde::de::Error::custom)?;
-        let naive_datetime = naive_date.and_hms(0, 0, 0);
+        let naive_datetime = naive_date.and_hms_opt(0, 0, 0).unwrap();
 
         let local_datetime = Local.from_local_datetime(&naive_datetime).unwrap();
 
