@@ -255,8 +255,8 @@ mod tests {
             Record::from("BB22187E-0BD3-41E8-B3D8-8136BD700865", Transaction::from(Some("2021-7-8"), None, None, "Velociraptor Entertainment", "", 50000 as f64, TransactionType::Deposit, false).unwrap())
         ];
 
-        if let Ok(records) = Record::from_tsv_file("test.tsv") {
-            assert_eq!(records, expected_records)
-        }
+        let records = Record::from_tsv_file("test.tsv").unwrap();
+
+        assert_eq!(records, expected_records)
     }
 }
