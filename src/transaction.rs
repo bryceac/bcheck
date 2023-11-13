@@ -59,7 +59,7 @@ impl Transaction {
      * Create a transaction object with given values.
      * This function will throw an Error if a given date string is not in the proper format, which is "yyyy-mm-dd" or "yyyy-m-d".
      * # Example
-     * ```let transaction = Transaction::from(None, Some(1260), "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::Deposit, false);```
+     * ```let transaction = Transaction::from(None, Some(1260), Some("Opening Balance"), "Sam Hill Credit Union", "Open Account", 500 as f64, TransactionType::Deposit, false);```
      */
     pub fn from(date: Option<&str>, check_number: Option<u32>, category: Option<&str>, vendor: &str, memo: &str, amount: f64, transaction_type: TransactionType, is_reconciled: bool) -> Result<Transaction, String> {
         if let Some(date_string) = date {
