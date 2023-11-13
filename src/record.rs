@@ -91,11 +91,7 @@ impl Record {
     pub fn from_tsv_file(f: &str) -> Result<Vec<Record>, String> {
         match file_contents_from(f) {
             Ok(content) => {
-                let lines: Vec<&str> = if cfg!(target_os = "unix") {
-                    content.split('\n').collect()
-                } else {
-                    content.split("\r\n").collect()
-                };
+                let lines: Vec<&str> = content.lines().map(|l| l).collect();
 
                 let records: Vec<Record> = lines.iter().map(|line| Record::from_string(line)).collect();
 
