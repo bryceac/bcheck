@@ -27,11 +27,7 @@ impl Save for Vec<Record> {
 
     fn save_tsv(&self, path: &str) -> Result<(), Error> {
         let mut output = File::create(path)?;
-        let tsv_string: String = if cfg!(target_os = "unix") {
-            self.iter().map(|record| record.to_string() + "\n").collect()
-        } else {
-            self.iter().map(|record| record.to_string() + "\r\n").collect()
-        };
+        let tsv_string: String = self.iter().map(|record| record.to_string() + "\r\n").collect();
 
         match write!(output, "{}", format!("{}", tsv_string)) {
             Ok(()) => Ok(()),

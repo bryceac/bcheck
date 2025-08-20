@@ -123,7 +123,7 @@ impl PartialEq for Record {
 }
 
 fn default_id() -> String {
-    Uuid::new_v4().to_hyphenated().to_string()
+    Uuid::new_v4().hyphenated().to_string()
 }
 
 fn file_contents_from(f: &str) -> Result<String, io::Error> {
